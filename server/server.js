@@ -13,6 +13,10 @@ let calculations = []
 // Here's a wonderful place to make some routes:
 
 // GET /calculations
+app.get('/calculations', (req, res) => {
+  res.send(calculations);
+    console.log('successful GET request');
+});
 
 // POST /calculations
 
