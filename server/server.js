@@ -12,14 +12,23 @@ let calculations = []
 
 // Here's a wonderful place to make some routes:
 
+//app.get sends back the calculations array as a response
 // GET /calculations
+
 app.get('/calculations', (req, res) => {
   res.send(calculations);
     console.log('successful GET request');
 });
 
+// app.post takes in a new calculation object and
+// adds it to the calculations array
 // POST /calculations
 
+app.post('/calculations', (req, res) => {
+  let newCalculation = req.body;
+  calculations.push(newCalculation);
+  console.log('added calculation', newCalculation);
+});
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
