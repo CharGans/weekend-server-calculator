@@ -9,22 +9,22 @@
   <body>
     <h1>Server-Side Calculator</h1>
 
-    <form data-testid="calculator" onsubmit="addNewCalc(event)">
-      <input data-testid="numOne" placeholder="First Number">
-      <button>+</button>
+    <form data-testid="calculator">
+      <input data-testid="numOne" placeholder="First Number" id="numOne">
+      <button id="plus" value="+">+</button>
       <button>-</button>
       <button>*</button>
       <button>/</button>
-      <input data-testid="numTwo" placeholder="Second Number">
-      <button type="submit">=</button>
+      <input data-testid="numTwo" placeholder="Second Number" id="numTwo">
+      <button onclick="addNewCalc(event)">=</button>
       <button>C</button>
     </form>
 
-    <section data-testid="recentResult">
+    <section data-testid="recentResult" id="recentResult">
       <!-- The most recent calculation result goes here. -->
     </section>
 
-    <section data-testid="resultHistory">
+    <section data-testid="resultHistory" id="resultHistory">
       <!-- The list of calculation results goes here. -->
     </section>
   </body>
