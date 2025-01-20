@@ -28,6 +28,7 @@ app.post('/calculations', (req, res) => {
   let newCalculation = req.body;
   calculations.push(newCalculation);
   console.log('added calculation', newCalculation);
+  res.sendStatus(201);
 });
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:

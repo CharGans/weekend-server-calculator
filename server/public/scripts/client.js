@@ -38,8 +38,8 @@ resultHistory.innerHTML = '';
 if (calculations.length > 0) {
     let mostRecent = calculations[calculations.length - 1];
 
-        mostRecent.innerHTML += `
-        <p>${newCalculation}</p>
+        recentResult.innerHTML += `
+        <p>${mostRecent.result}</p>
         `;
         calculations.forEach(calc => {
             resultHistory.innerHTML += `
