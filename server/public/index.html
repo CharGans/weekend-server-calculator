@@ -17,13 +17,13 @@
       <button>/</button>
       <input data-testid="numTwo" placeholder="Second Number" id="numTwo">
       <button onclick="addNewCalc(event)">=</button>
-      <button>C</button>
+      <button onclick="clearInputs(event)">C</button>
     </form>
 
     <section data-testid="recentResult" id="recentResult">
       <!-- The most recent calculation result goes here. -->
     </section>
-
+<h2>Previous Calculations</h2>
     <section data-testid="resultHistory" id="resultHistory">
       <!-- The list of calculation results goes here. -->
     </section>

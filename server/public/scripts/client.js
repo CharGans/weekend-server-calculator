@@ -27,7 +27,7 @@ alert('Somthing went wrong!');
 
 }; //end of getNewCalc function
 
-function renderToDom(calculations) {
+function renderToDom(newCalculation) {
     console.log('in renderToDom');
     let recentResult = document.getElementById('recentResult');
     let resultHistory = document.getElementById('resultHistory');
@@ -35,13 +35,14 @@ function renderToDom(calculations) {
 recentResult.innerHTML = '';
 resultHistory.innerHTML = '';
 
-if (calculations.length > 0) {
-    let mostRecent = calculations[calculations.length - 1];
+//maybe try calculataions.result.length - 1?
+if (newCalculation.length > 0) {
+    let mostRecent = newCalculation[newCalculation.length - 1];
 
         recentResult.innerHTML += `
         <p>${mostRecent.result}</p>
         `;
-        calculations.forEach(calc => {
+        newCalculation.forEach(calc => {
             resultHistory.innerHTML += `
             <p>${calc.numberOne} ${calc.numberTwo}</p>
             `;
@@ -54,8 +55,8 @@ function addNewCalc(event) {
     event.preventDefault();
 console.log('= button works!');
 //variables to store inputs
-let firstNum = parseFloat(document.getElementById('numOne').value);
-let secondNum = parseFloat(document.getElementById('numTwo').value);
+let firstNum = Number(document.getElementById('numOne').value);
+let secondNum = Number(document.getElementById('numTwo').value);
 
 axios.post('/calculations', 
     { numberOne: firstNum,
@@ -71,4 +72,12 @@ axios.post('/calculations',
     });
 
 };
+
 getNewCalc();
+
+//function to clear inputs. called with C button
+function clearInputs(event) {
+    event.preventDefault();
+    document.getElementById('numOne').value = '';
+    document.getElementById('numTwo').value = '';
+}

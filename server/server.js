@@ -9,7 +9,6 @@ app.use(express.static('server/public'));
 // calculation objects:
 let calculations = []
 
-
 // Here's a wonderful place to make some routes:
 
 //app.get sends back the calculations array as a response
@@ -25,11 +24,41 @@ app.get('/calculations', (req, res) => {
 // POST /calculations
 
 app.post('/calculations', (req, res) => {
-  let newCalculation = req.body;
+   const numberOne = req.body.numberOne;
+   const numberTwo = req.body.numberTwo;
+   const method = req.body.method
+
+  //turn all methods into objects that have the value of an arrow function
+    let methodTypes = {
+      '+': (a, b) => a + b,
+      '-': (a, b) => a - b,
+      '*': (a, b) => a * b,
+      '/': (a, b) => a / b
+    };
+
+let chosenMethod = methodTypes[method];
+
+  let result = chosenMethod(numberOne, numberTwo);
+  let newCalculation = { numberOne, numberTwo, method, result };
+
   calculations.push(newCalculation);
-  console.log('added calculation', newCalculation);
+  console.log('added new calculation', newCalculation);
   res.sendStatus(201);
 });
+
+
+
+
+
+
+//app.post('/calculations', (req, res) => {
+  //let newCalculation = req.body;
+  //calculations.push(newCalculation);
+  //console.log('added calculation', newCalculation);
+  //res.sendStatus(201);
+//});
+
+console.log('calculation array in server.js', calculations);
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸
