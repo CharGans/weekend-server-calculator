@@ -24,11 +24,13 @@ app.get('/calculations', (req, res) => {
 // POST /calculations
 
 app.post('/calculations', (req, res) => {
-   const numberOne = req.body.numberOne;
-   const numberTwo = req.body.numberTwo;
+   const numberOne = Number(req.body.numberOne);
+   const numberTwo = Number(req.body.numberTwo);
    const method = req.body.method
 
-  //turn all methods into objects that have the value of an arrow function
+  //turn all methods into an object that has the value of different arrow functions
+console.log('chosen method function', method);
+
     let methodTypes = {
       '+': (a, b) => a + b,
       '-': (a, b) => a - b,
@@ -57,8 +59,6 @@ let chosenMethod = methodTypes[method];
   //console.log('added calculation', newCalculation);
   //res.sendStatus(201);
 //});
-
-console.log('calculation array in server.js', calculations);
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
 // 🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸  🐻  🐻‍❄️  🧸

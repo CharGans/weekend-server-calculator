@@ -1,5 +1,11 @@
 console.log('client.js is sourced!');
 
+let calculation = {
+    numberOne: null,
+    numberTwo: null,
+    method: null
+};
+
 //function that requests data from backEnd
 function getNewCalc() {
     console.log('in getNewCalc function');
@@ -8,14 +14,11 @@ function getNewCalc() {
 // .then is responsible for the action done once 
 // a successfull GET request has been made
     .then((response) => {
-        console.log('got /calculations data',
-         response.data
-        );
+        console.log('got /calculations data', response.data);
 
 // store response.data in a variable
 let newCalculation = response.data;
 
-//call the renderToDom function with the new data
 renderToDom(newCalculation);
 })
 
@@ -35,33 +38,39 @@ function renderToDom(newCalculation) {
 recentResult.innerHTML = '';
 resultHistory.innerHTML = '';
 
-//maybe try calculataions.result.length - 1?
 if (newCalculation.length > 0) {
     let mostRecent = newCalculation[newCalculation.length - 1];
 
-        recentResult.innerHTML += `
-        <p>${mostRecent.result}</p>
-        `;
+//renders resent result to dom
+        recentResult.innerHTML += `<p>${mostRecent.result}</p>`;
+//renders all previous results to dom
         newCalculation.forEach(calc => {
-            resultHistory.innerHTML += `
-            <p>${calc.numberOne} ${calc.numberTwo}</p>
-            `;
+            resultHistory.innerHTML += `<p>${calc.numberOne} ${calc.method} ${calc.numberTwo} = ${calc.result}</p>`;
         });
     };
+};
+
+//function to update existing calculation object
+function selectMethod(event, method) {
+    event.preventDefault();
+    console.log('method selected', method);
+    calculation.numberOne = Number(document.getElementById('numOne').value);
+    calculation.numberTwo = Number(document.getElementById('numTwo').value);
+    calculation.method = method;
 };
 
 //this function is called when form is submitted
 function addNewCalc(event) {
     event.preventDefault();
 console.log('= button works!');
-//variables to store inputs
-let firstNum = Number(document.getElementById('numOne').value);
-let secondNum = Number(document.getElementById('numTwo').value);
+// let firstNum = Number(document.getElementById('numOne').value);
+// let secondNum = Number(document.getElementById('numTwo').value);
+if (calculation.numberOne === null || calculation.numberTwo === null) {
+    alert('Please select a method and enter both numbers');
+    return;
+};
 
-axios.post('/calculations', 
-    { numberOne: firstNum,
-      numberTwo: secondNum
-    })
+axios.post('/calculations', calculation)
     .then ((response) => {
         console.log('calculation added', response.data);
         getNewCalc();
@@ -73,11 +82,17 @@ axios.post('/calculations',
 
 };
 
-getNewCalc();
-
 //function to clear inputs. called with C button
 function clearInputs(event) {
     event.preventDefault();
     document.getElementById('numOne').value = '';
     document.getElementById('numTwo').value = '';
-}
+
+    calculation = {
+        numberOne: null,
+        numberTwo: null,
+        method: null
+    };
+};
+
+getNewCalc();
