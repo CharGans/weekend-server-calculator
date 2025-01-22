@@ -19,6 +19,7 @@ function getNewCalc() {
 // store response.data in a variable
 let newCalculation = response.data;
 
+//send that variable to the renderToDom function
 renderToDom(newCalculation);
 })
 
@@ -50,7 +51,7 @@ if (newCalculation.length > 0) {
     };
 };
 
-//function to update existing calculation object
+//function to update existing calculation object with the selected method
 function selectMethod(event, method) {
     event.preventDefault();
     console.log('method selected', method);
@@ -62,9 +63,9 @@ function selectMethod(event, method) {
 //this function is called when form is submitted
 function addNewCalc(event) {
     event.preventDefault();
-console.log('= button works!');
-// let firstNum = Number(document.getElementById('numOne').value);
-// let secondNum = Number(document.getElementById('numTwo').value);
+console.log('= button pressed!');
+
+//send an alert if selected calculation requirements are not met
 if (calculation.numberOne === null || calculation.numberTwo === null) {
     alert('Please select a method and enter both numbers');
     return;
